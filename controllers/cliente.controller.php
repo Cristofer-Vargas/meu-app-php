@@ -27,4 +27,9 @@ class ClienteController
         $dao = new ClienteDAO();
         return $dao->atualizaCliente($cliente);
     }
+
+    public function excluirCliente(Cliente $cliente) {
+        $dao = new ClienteDAO();
+        return $dao->removeCliente($cliente);
+    }
 }
