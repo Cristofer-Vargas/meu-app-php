@@ -28,8 +28,8 @@ class ClienteController
         return $dao->atualizaCliente($cliente);
     }
 
-    public function excluirCliente(Cliente $cliente) {
+    public function excluirCliente(int $id) {
         $dao = new ClienteDAO();
-        return $dao->removeCliente($cliente);
+        return $dao->removeCliente($id);
     }
 }

@@ -6,6 +6,7 @@ require_once(str_replace('\\', '/', dirname(__FILE__, 2)) . '/controllers/client
 
 $controller = new ClienteController();
 $clientes = $controller->buscarTodos();
+var_dump($clientes);
 
 ?>
 <div class="container">
@@ -42,6 +43,27 @@ $clientes = $controller->buscarTodos();
 			?>
 		</tbody>
 	</table>
+	<?php
+	if (isset($_SESSION) && isset($_SESSION['sucesso']) && $_SESSION['sucesso'] == TRUE) {
+	?>
+		<tr colspan="4">
+			<div class="alert alert-success" role="alert">
+				<?= $_SESSION['mensagem']; ?>
+			</div>
+		</tr>
+	<?php
+	}
+	if (isset($_SESSION) && isset($_SESSION['sucesso']) && $_SESSION['sucesso'] == false) {
+	?>
+		<tr colspan="4">
+			<div class="alert alert-danger" role="alert">
+				<?= $_SESSION['mensagem']; ?>
+			</div>
+		</tr>
+	<?php
+	}
+	unset($_SESSION['sucesso'], $_SESSION['mensagem']);
+	?>
 
 
 

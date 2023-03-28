@@ -8,25 +8,14 @@ require_once(str_replace('\\', '/', dirname(__FILE__, 2)) . "/controllers/client
 
 $cliente = new Cliente();
 
-if (isset($_GET) && isset($_GET['id'])) {
-  $id         = addslashes(filter_input(INPUT_GET, 'id'));
-  $nome       = addslashes(filter_input(INPUT_GET, 'nome'));
-  $cpfcnpj    = addslashes(filter_input(INPUT_GET, 'cpfcnpj'));
-  $telefone   = addslashes(filter_input(INPUT_GET, 'telefone'));
+if (isset($_GET) && isset($_GET['key'])) {
+	$id = filter_input(INPUT_GET, 'key');
+	$controller = new ClienteController();
+	// $cliente = $controller->buscarPorId($id);
 
-  if (empty($nome) && empty($cpfcnpj)) {
-    $_SESSION['mensagem'] = "É necessário informar Nome e CPF / CNPJ";
-    $_SESSION['sucesso'] = false;
-    die();
-  }
+  // $cliente->setId($id);
 
-  $cliente->setId($id);
-  $cliente->setNome($nome);
-  $cliente->setCpfCnpj($cpfcnpj);
-  $cliente->setTelefone($telefone);
-
-  $controller = new ClienteController();
-  $result = $controller->excluirCliente($cliente);
+  $result = $controller->excluirCliente($id);
 
   if ($result == true) {
     $_SESSION['mensagem'] = "Cliente excluido com sucesso";
