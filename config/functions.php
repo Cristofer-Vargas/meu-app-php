@@ -23,3 +23,27 @@ function verificaSessao() {
         header("Location:../public/index.php");
     }
 }
+
+function menssagemPerssonalizada() {
+    
+	if (isset($_SESSION) && isset($_SESSION['sucesso']) && $_SESSION['sucesso'] == TRUE) {
+	?>
+		<tr colspan="4">
+			<div class="alert alert-success" role="alert">
+				<?= $_SESSION['mensagem']; ?>
+			</div>
+		</tr>
+	<?php
+	}
+	if (isset($_SESSION) && isset($_SESSION['sucesso']) && $_SESSION['sucesso'] == false) {
+	?>
+		<tr colspan="4">
+			<div class="alert alert-danger" role="alert">
+				<?= $_SESSION['mensagem']; ?>
+			</div>
+		</tr>
+	<?php
+	}
+	unset($_SESSION['sucesso'], $_SESSION['mensagem']);
+	
+}

@@ -11,4 +11,14 @@ class ProdutoController {
     return $dao->buscarTodos();
   }
 
+  public function buscarPorId(int $id) {
+    $dao = new ProdutoDAO;
+    return $dao->BuscarPorId($id);
+  }
+
+  public function inserirProduto(Produto $produto) {
+    $dao = new ProdutoDAO;
+    return $dao->inserirProduto($produto);
+  }
+
 }

@@ -12,7 +12,7 @@ if (isset($_POST) && isset($_POST['id'])) {
 	$nome       = addslashes(filter_input(INPUT_POST, 'nome'));
 	$cpfcnpj    = addslashes(filter_input(INPUT_POST, 'cpfcnpj'));
 	$telefone   = addslashes(filter_input(INPUT_POST, 'telefone'));
-	var_dump($cpfcnpj);
+	// var_dump($id);
 
 	if (empty($nome) || empty($cpfcnpj)) {
 		$_SESSION['mensagem'] = "Obrigatório informar Nome e CPF/CNPJ";
@@ -36,6 +36,7 @@ if (isset($_POST) && isset($_POST['id'])) {
 		$_SESSION['sucesso'] = false;
 	}
 	header('Location:../public/cad_cliente.php');
+	
 } else {
 
 	$nome = isset($_POST['nome']) ? $_POST['nome'] : null;

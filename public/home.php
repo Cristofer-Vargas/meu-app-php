@@ -6,7 +6,7 @@ require_once(str_replace('\\', '/', dirname(__FILE__, 2)) . '/controllers/client
 
 $controller = new ClienteController();
 $clientes = $controller->buscarTodos();
-var_dump($clientes);
+// var_dump($clientes);
 
 ?>
 <div class="container">
@@ -14,6 +14,7 @@ var_dump($clientes);
 
 	<h1>Lista de Clientes</h1>
 	<a class="btn btn-primary" href="cad_cliente.php">Novo Cliente</a>
+	<?= menssagemPerssonalizada() ?>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -43,29 +44,6 @@ var_dump($clientes);
 			?>
 		</tbody>
 	</table>
-	<?php
-	if (isset($_SESSION) && isset($_SESSION['sucesso']) && $_SESSION['sucesso'] == TRUE) {
-	?>
-		<tr colspan="4">
-			<div class="alert alert-success" role="alert">
-				<?= $_SESSION['mensagem']; ?>
-			</div>
-		</tr>
-	<?php
-	}
-	if (isset($_SESSION) && isset($_SESSION['sucesso']) && $_SESSION['sucesso'] == false) {
-	?>
-		<tr colspan="4">
-			<div class="alert alert-danger" role="alert">
-				<?= $_SESSION['mensagem']; ?>
-			</div>
-		</tr>
-	<?php
-	}
-	unset($_SESSION['sucesso'], $_SESSION['mensagem']);
-	?>
-
-
 
 </div>
 
