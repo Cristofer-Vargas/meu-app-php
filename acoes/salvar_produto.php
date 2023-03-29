@@ -4,7 +4,7 @@ require_once(str_replace('\\', '/', dirname(__FILE__, 2)) . '/acoes/verifica_ses
 require_once(str_replace('\\', '/', dirname(__FILE__, 2)) . '/classes/produto.class.php');
 require_once(str_replace('\\', '/', dirname(__FILE__, 2)) . '/controllers/produto.controller.php');
 
-if (isset($_POST) && isset($_POST['id'])) {
+if (isset($_POST) && isset($_POST[intval('id')])) {
   $id = addslashes(filter_input(INPUT_POST, 'id'));
   $nome = addslashes(filter_input(INPUT_POST, 'nome'));
   $descricao = addslashes(filter_input(INPUT_POST, 'descricao'));
@@ -14,6 +14,7 @@ if (isset($_POST) && isset($_POST['id'])) {
   if (empty($nome) && empty($qtde_estoque)) {
     $_SESSION['mensagem'] = "É necessário informar campos obrigatórios!";
     $_SESSION['sucesso'] = false;
+    header('Location:../public/cad_produto.php?key=' . $id);
     die();
   }
 
@@ -26,9 +27,20 @@ if (isset($_POST) && isset($_POST['id'])) {
   $produto->setCodigo_barras($codigo_barras);
   $produto->setQtde_estoque($qtde_estoque);
 
-  // $resultado = $controller->inserirProduto($produto);
+  var_dump($produto);
 
-  header('Location:../public/cad_produto.php');
+  $resultado = $controller->AtualizarProduto($produto);
+
+  if ($resultado == true) {
+    $_SESSION['mensagem'] = "Produto atualizado com sucesso!";
+    $_SESSION['sucesso'] = true;
+
+  } else {
+    $_SESSION['mensagem'] = "Erro ao atualizar produto!";
+    $_SESSION['sucesso'] = false;
+  }
+
+  header('Location:../public/cad_produto.php?key=' . $id);
 
 } else {
 
@@ -42,7 +54,6 @@ if (isset($_POST) && isset($_POST['id'])) {
     $produto = new Produto();
     $controller = new ProdutoController();
   
-    $produto->setId($id);
     $produto->setNome($nome);
     $produto->setDescricao($descricao);
     $produto->setCodigo_barras($codigo_barras);

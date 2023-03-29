@@ -42,7 +42,7 @@ $produtos = $controller->buscarTodos();
       <td><?= $row->getQtde_estoque() ?></td>
       <td>
         <a class='btn btn-light' href="./cad_produto.php?key=<?= $row->getId()?>">Editar</a>
-        <a class="btn btn-link" href="#?key=<?= $row->getId()?>">Excluir</a>
+        <a class="btn btn-link" href="../acoes/excluir_produto.php?key=<?= $row->getId()?>">Excluir</a>
       </td>
     </tr>
     <?php endforeach;?>

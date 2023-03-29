@@ -21,4 +21,14 @@ class ProdutoController {
     return $dao->inserirProduto($produto);
   }
 
+  public function excluirProduto(int $id) {
+    $dao = new ProdutoDAO();
+    return $dao->ExcluirProduto($id);
+  }
+  
+  public function atualizarProduto(Produto $produto) {
+    $dao = new ProdutoDAO();
+    return $dao->AtualizarProduto($produto);
+  }
+
 }

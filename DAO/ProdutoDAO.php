@@ -56,9 +56,8 @@ class ProdutoDAO
           $produto->setDescricao($result->descricao);
           $produto->setCodigo_barras($result->codigo_barras);
           $produto->setQtde_estoque($result->qtde_estoque);
-          return $produto; 
+          return $produto;
         }
-
       } else {
         $_SESSION['mensagem'] = "Não houve resultados com esse ID";
         $_SESSION['sucesso'] = false;
@@ -86,13 +85,16 @@ class ProdutoDAO
 
       $stmt->execute();
 
+      if ($stmt->rowCount()) {
+        $conec->commit();
+        return true;
+      }
+
       if ($stmt == false) {
         $_SESSION['mensagem'] = "Não foi possível adicionar produto!";
         $_SESSION['sucesso'] = false;
         return NULL;
-
       }
-
     } catch (PDOException $ex) {
       $conec->rollBack();
       echo "Erro ao inserir Produto: " . $ex->getMessage();
@@ -102,9 +104,57 @@ class ProdutoDAO
 
   public function ExcluirProduto(int $id)
   {
+    try {
+      $conec = connectDb();
+      $conec->beginTransaction();
+
+      $stmt = $conec->prepare('DELETE FROM produtos WHERE id = :id');
+      $stmt->bindValue(':id', $id);
+      $stmt->execute();
+      
+      if ($stmt->rowCount()) {
+        $conec->commit();
+        return true;
+
+      }
+
+      return false;
+
+    } catch (PDOException $ex) {
+      echo "Erro ao excluir produto: " . $ex->getMessage();
+      $conec->rollBack();
+      die();
+    }
   }
 
-  public function AtualizarProduto(int $id)
+  public function AtualizarProduto(Produto $produto)
   {
+    try {
+      $conec = connectDb();
+      $conec->beginTransaction();
+
+      $stmt = $conec->prepare('UPDATE produtos SET nome = :nome, 
+      descricao = :descricao, codigo_barras = :codigo_barras, 
+      qtde_estoque = :qtde_estoque WHERE id = :id');
+      $stmt->bindValue(':nome', $produto->getNome());
+      $stmt->bindValue(':descricao', $produto->getDescricao());
+      $stmt->bindValue(':codigo_barras', $produto->getCodigo_barras());
+      $stmt->bindValue(':qtde_estoque', $produto->getQtde_estoque());
+      $stmt->bindValue(':id', $produto->getId());
+
+      $stmt->execute();
+
+      if ($stmt->rowCount()) {
+        $conec->commit();
+        return true;
+      }
+
+      return false;
+
+    } catch (PDOException $ex) {
+      echo "Erro ao atualizar produto: " . $ex->getMessage();
+      $conec->rollBack();
+      die();
+    }
   }
 }
