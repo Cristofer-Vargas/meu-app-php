@@ -2,5 +2,5 @@
 
 define('HOST', 'localhost');
 define('USER', 'root');
-define('PASS', 'root');
+define('PASS', '');
 define('DBNAME', 'my_app');

@@ -38,12 +38,12 @@ if (isset($_GET) && isset($_GET['key'])) {
 		</div>
 		
     <div class="mb-3">
-			<label for="qntde_estoque" class="form-label">Quantidade em Estoque*</label>
-			<input type="tel" class="form-control" id="qntde_estoque" name="qntde_estoque" value="<?= $produto->getQtde_estoque() ?>">
+			<label for="qtde_estoque" class="form-label">Quantidade em Estoque*</label>
+			<input type="tel" class="form-control" id="qtde_estoque" name="qtde_estoque" value="<?= $produto->getQtde_estoque() ?>">
 		</div>
-
 		<button type="submit" class="btn btn-primary">Salvar</button>
 	</form>
+
 
   <?= menssagemPerssonalizada() ?>
   

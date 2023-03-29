@@ -28,8 +28,6 @@ class ProdutoDAO
 
         return $retorno;
       } else {
-        $_SESSION['mensagem'] = "Não há produtos cadastrados";
-        $_SESSION['sucesso'] = false;
         return NULL;
       }
     } catch (PDOException $ex) {
@@ -93,7 +91,7 @@ class ProdutoDAO
       if ($stmt == false) {
         $_SESSION['mensagem'] = "Não foi possível adicionar produto!";
         $_SESSION['sucesso'] = false;
-        return NULL;
+        return false;
       }
     } catch (PDOException $ex) {
       $conec->rollBack();

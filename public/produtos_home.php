@@ -33,7 +33,8 @@ $produtos = $controller->buscarTodos();
     </thead>
     <tbody>
 
-    <?php foreach ($produtos as $row) :?>
+    <?php if (!empty($produtos)) {
+      foreach ($produtos as $row) :?>
     <tr>
       <td><?= $row->getId() ?></td>
       <td><?= $row->getNome() ?></td>
@@ -45,7 +46,12 @@ $produtos = $controller->buscarTodos();
         <a class="btn btn-link" href="../acoes/excluir_produto.php?key=<?= $row->getId()?>">Excluir</a>
       </td>
     </tr>
-    <?php endforeach;?>
+    <?php endforeach;
+  } else {
+    $_SESSION['mensagem'] = "Não há produtos cadastrados";
+    $_SESSION['sucesso'] = false;
+  }
+  ?>
 
     </tbody>
   </table>
